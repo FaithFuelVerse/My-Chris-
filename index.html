@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Chris chakku! 🎉</title>
+  <!-- Google Fonts (Including Noto Sans Malayalam for smooth Malayalam rendering) -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@500;600;700&family=Noto+Sans+Malayalam:wght@500;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --pink-bg: #fde2ec;
+      --pink-bg-grad: #f8c8dc;
+      --primary-pink: #ff5e97;
+      --dark-text: #4a2538;
+      --muted-text: #8c5d73;
+      --card-bg: #fffbf7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Quicksand', 'Noto Sans Malayalam', sans-serif;
+      background: radial-gradient(circle at top, #fff0f5 0%, var(--pink-bg) 55%, var(--pink-bg-grad) 100%);
+      color: var(--dark-text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Floating Music Toggle Button */
+    .music-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #ffc2d9;
+      color: var(--primary-pink);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 94, 151, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .music-toggle:hover {
+      transform: scale(1.05);
+      background: #fff;
+    }
+    .music-toggle.playing .music-icon {
+      animation: spinNote 2.5s infinite linear;
+      display: inline-block;
+    }
+    @keyframes spinNote {
+      0%, 100% { transform: rotate(-12deg) scale(1); }
+      50% { transform: rotate(12deg) scale(1.15); }
+    }
+
+    /* Floating Background Clouds */
+    .bg-decor {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .cloud {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 50px;
+      filter: blur(1px);
+      animation: floatCloud 18s infinite ease-in-out alternate;
+    }
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .cloud-1 { width: 110px; height: 38px; top: 12%; left: -20px; }
+    .cloud-1::before { width: 50px; height: 50px; top: -24px; left: 18px; }
+    .cloud-1::after { width: 40px; height: 40px; top: -16px; left: 52px; }
+
+    .cloud-2 { width: 130px; height: 44px; bottom: 10%; right: -25px; animation-delay: -6s; }
+    .cloud-2::before { width: 60px; height: 60px; top: -28px; left: 22px; }
+    .cloud-2::after { width: 46px; height: 46px; top: -18px; left: 62px; }
+
+    @keyframes floatCloud {
+      0% { transform: translateX(0px) translateY(0px); }
+      100% { transform: translateX(35px) translateY(-10px); }
+    }
+
+    /* Main Container */
+    .stage-container {
+      width: 100%;
+      max-width: 460px;
+      min-height: 94vh;
+      padding: 24px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      animation: fadeInStep 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .step.active {
+      display: flex;
+    }
+
+    @keyframes fadeInStep {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Typography */
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted-text);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .script-title {
+      font-family: 'Caveat', cursive;
+      font-size: 3.3rem;
+      color: var(--primary-pink);
+      line-height: 1.05;
+      margin: 4px 0;
+    }
+    .script-sub {
+      font-family: 'Caveat', cursive;
+      font-size: 1.55rem;
+      color: var(--muted-text);
+      margin-bottom: 22px;
+    }
+    .heading {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2.2rem;
+      color: var(--dark-text);
+      margin-bottom: 6px;
+    }
+    .subtext {
+      font-size: 0.96rem;
+      color: var(--muted-text);
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+
+    /* Buttons */
+    .btn-pink {
+      background: linear-gradient(135deg, #ff7eb3, #ff4d8d);
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255, 77, 141, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-pink:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 24px rgba(255, 77, 141, 0.45);
+    }
+    .btn-pink:active {
+      transform: scale(0.97);
+    }
+    .hidden {
+      display: none !important;
+    }
+
+    /* ================= STEP 1: GIFT BOX ================= */
+    .speech-bubble {
+      background: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 26px;
+      position: relative;
+      animation: floatBubble 2.2s infinite ease-in-out;
+    }
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px 8px 0;
+      border-style: solid;
+      border-color: white transparent transparent;
+    }
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .gift-wrapper {
+      position: relative;
+      width: 150px;
+      height: 145px;
+      cursor: pointer;
+      margin: 10px 0 24px;
+      transition: transform 0.15s;
+    }
+    .gift-wrapper.wobble {
+      animation: giftWobble 0.45s ease;
+    }
+    @keyframes giftWobble {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-8deg) scale(1.06); }
+      50% { transform: rotate(8deg) scale(1.06); }
+      75% { transform: rotate(-4deg) scale(1.03); }
+    }
+
+    .gift-lid {
+      position: absolute;
+      top: 0;
+      left: -6px;
+      width: 162px;
+      height: 38px;
+      background: linear-gradient(180deg, #ff94be, #ff6fa5);
+      border-radius: 12px;
+      z-index: 3;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .gift-lid::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 54px;
+      height: 20px;
+      background: #ffe066;
+      border-radius: 20px 20px 4px 4px;
+      box-shadow: inset 0 -3px 0 #f5c400;
+    }
+    .gift-lid.popped {
+      transform: translate(-35px, -85px) rotate(-28deg);
+      opacity: 0;
+    }
+
+    .gift-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 150px;
+      height: 115px;
+      background: linear-gradient(180deg, #ff74a8, #ff4788);
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 14px 28px rgba(255, 71, 136, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+    .cute-eyes {
+      display: flex;
+      gap: 34px;
+      margin-bottom: 6px;
+    }
+    .eye {
+      width: 11px;
+      height: 14px;
+      background: #2b111e;
+      border-radius: 50%;
+      position: relative;
+    }
+    .eye::after {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      right: 2px;
+    }
+    .cute-mouth {
+      width: 18px;
+      height: 10px;
+      background: #2b111e;
+      border-radius: 0 0 16px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cute-mouth::after {
+      content: '';
+      width: 12px;
+      height: 6px;
+      background: #ff7aa8;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -2px;
+      left: 3px;
+    }
+    .cheeks {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 26px;
+      top: 56px;
+    }
+    .cheek {
+      width: 14px;
+      height: 8px;
+      background: rgba(255, 200, 220, 0.65);
+      border-radius: 50%;
+    }
+
+    .hearts-progress {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 1.3rem;
+    }
+    .heart-dot {
+      color: #f3b6cf;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .heart-dot.filled {
+      color: #ff3b7f;
+      transform: scale(1.25);
+    }
+
+    /* ================= STEP 2: AGE & BALLOONS ================= */
+    .age-flip-container {
+      display: flex;
+      gap: 10px;
+      background: white;
+      padding: 12px 18px;
+      border-radius: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+      margin: 10px 0;
+    }
+    .age-digit {
+      width: 62px;
+      height: 82px;
+      background: #fff5f9;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 3.4rem;
+      color: var(--primary-pink);
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .age-digit.flip-anim {
+      transform: rotateX(360deg) scale(1.08);
+    }
+    .balloon-rows {
+      margin: 20px 0 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .balloon-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .balloon {
+      width: 38px;
+      height: 46px;
+      border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+      color: white;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset -4px -5px 8px rgba(0,0,0,0.15), 0 6px 12px rgba(0,0,0,0.08);
+      position: relative;
+      animation: floatBalloon 3s infinite ease-in-out alternate;
+    }
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -14px;
+      width: 1.5px;
+      height: 14px;
+      background: rgba(140, 93, 115, 0.4);
+    }
+    @keyframes floatBalloon {
+      0% { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-7px) rotate(2deg); }
+    }
+
+    /* ================= STEP 3: CAKE ================= */
+    .cake-stage {
+      position: relative;
+      width: 240px;
+      height: 210px;
+      margin: 15px auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      cursor: pointer;
+    }
+    .cake-wrapper {
+      display: flex;
+      width: 200px;
+      height: 170px;
+      position: relative;
+      transition: gap 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cake-wrapper.sliced {
+      gap: 24px;
+    }
+    .cake-half {
+      width: 50%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.6s ease;
+    }
+    .cake-wrapper.sliced .cake-half.left {
+      transform: rotate(-4deg) translateX(-6px);
+    }
+    .cake-wrapper.sliced .cake-half.right {
+      transform: rotate(4deg) translateX(6px);
+    }
+    .tier-top {
+      width: 140px;
+      height: 55px;
+      background: #ffe3a8;
+      border-radius: 14px 14px 0 0;
+      position: absolute;
+      top: 25px;
+      left: 0;
+      overflow: hidden;
+      box-shadow: inset 0 -6px 0 #f3c978;
+    }
+    .tier-top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: #ff6fa5;
+      border-radius: 12px 12px 10px 10px;
+    }
+    .tier-bottom {
+      width: 190px;
+      height: 65px;
+      background: #ffe3a8;
+      border-radius: 16px 16px 8px 8px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      overflow: hidden;
+      box-shadow: inset 0 -8px 0 #f3c978;
+    }
+    .tier-bottom::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 22px;
+      background: #ff5e97;
+      border-radius: 12px 12px 12px 12px;
+    }
+    .cake-half.left .tier-top { left: 30px; width: 70px; border-radius: 14px 0 0 0; }
+    .cake-half.right .tier-top { left: 0; width: 70px; border-radius: 0 14px 0 0; }
+    .cake-half.left .tier-bottom { left: 5px; width: 95px; border-radius: 16px 0 0 8px; }
+    .cake-half.right .tier-bottom { left: 0; width: 95px; border-radius: 0 16px 8px 0; }
+
+    /* Number Candles */
+    .candle-num {
+      position: absolute;
+      top: -18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2.7rem;
+      font-weight: 700;
+      color: #63b3ed;
+      text-shadow: 0 3px 0 #3182ce;
+      z-index: 4;
+    }
+    .cake-half.left .candle-num { right: 12px; }
+    .cake-half.right .candle-num { left: 12px; }
+
+    .flame {
+      width: 14px;
+      height: 22px;
+      background: radial-gradient(circle at bottom, #fff 10%, #ffd166 50%, #ff9f1c 90%);
+      border-radius: 50% 50% 35% 35%;
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 14px #ffb703;
+      animation: flicker 0.6s infinite alternate;
+    }
+    .flame.lit {
+      transform: translateX(-50%) scale(1);
+    }
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1) rotate(-3deg); }
+      100% { transform: translateX(-50%) scale(1.08) rotate(3deg); }
+    }
+
+    .hold-btn-wrap {
+      position: relative;
+      overflow: hidden;
+      background: #f4acc8;
+      border-radius: 50px;
+      padding: 0;
+      width: 220px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255, 77, 141, 0.25);
+      margin-top: 16px;
+    }
+    .hold-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: linear-gradient(135deg, #ff7eb3, #ff4d8d);
+      transition: width 0.08s linear;
+    }
+    .hold-label {
+      position: relative;
+      z-index: 2;
+      color: white;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+    }
+
+    /* ================= STEP 4: 4 MINI PRESENTS ================= */
+    .presents-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 360px;
+      margin: 10px 0 18px;
+    }
+    .mini-present-slot {
+      height: 145px;
+      perspective: 800px;
+      cursor: pointer;
+    }
+    .mini-card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .mini-present-slot.opened .mini-card-inner {
+      transform: rotateY(180deg);
+    }
+    .mini-front, .mini-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 14px;
+    }
+    .mini-front {
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+    .mini-front.pink { background: linear-gradient(180deg, #ff85b3, #ff5392); }
+    .mini-front.green { background: linear-gradient(180deg, #68e3b0, #38c98e); }
+    .mini-front.blue { background: linear-gradient(180deg, #8ec5fc, #5aa6f8); }
+    .mini-front.yellow { background: linear-gradient(180deg, #ffe07d, #ffc93c); }
+
+    .mini-back {
+      background: var(--card-bg);
+      transform: rotateY(180deg);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+      border: 2px solid #fce4ec;
+      text-align: center;
+    }
+    .reason-num {
+      font-family: 'Caveat', cursive;
+      color: var(--primary-pink);
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+    .reason-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--dark-text);
+      line-height: 1.35;
+    }
+
+    /* ================= STEP 5: MAIL LETTER ================= */
+    .mail-envelope {
+      width: 250px;
+      height: 295px;
+      background: linear-gradient(160deg, #ff94be, #ff5e97);
+      border-radius: 24px;
+      box-shadow: 0 14px 30px rgba(255, 94, 151, 0.35);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s;
+      padding: 16px;
+    }
+    .mail-envelope:hover {
+      transform: scale(1.03);
+    }
+    .letter-paper {
+      width: 100%;
+      max-width: 390px;
+      max-height: 60vh;
+      overflow-y: auto;
+      background: #fffdf9;
+      border-radius: 20px;
+      padding: 24px 20px;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.1);
+      text-align: left;
+      background-image: repeating-linear-gradient(transparent, transparent 29px, #f3e4e9 30px);
+      line-height: 30px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #3d2330;
+      position: relative;
+      scroll-behavior: smooth;
+    }
+    .letter-paper::-webkit-scrollbar {
+      width: 6px;
+    }
+    .letter-paper::-webkit-scrollbar-thumb {
+      background: #f5b0cb;
+      border-radius: 10px;
+    }
+    .letter-salutation {
+      font-family: 'Caveat', cursive;
+      color: var(--primary-pink);
+      font-size: 1.85rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .letter-sign {
+      text-align: right;
+      font-family: 'Caveat', cursive;
+      color: var(--primary-pink);
+      font-size: 1.75rem;
+      margin-top: 14px;
+      font-weight: 700;
+    }
+
+    /* ================= STEP 6: FINALE ================= */
+    .rainbow-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 3rem;
+      line-height: 1.15;
+      margin: 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3px;
+    }
+    .rainbow-title span {
+      display: inline-block;
+      animation: waveChar 1.4s infinite ease-in-out;
+    }
+    @keyframes waveChar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Optional Custom MP3 Tag (If you want to use your own MP3 file, put the link in CONFIG.customSongUrl below) -->
+  <audio id="custom-audio" loop preload="auto"></audio>
+
+  <!-- Floating Music Button -->
+  <button class="music-toggle" id="music-btn" onclick="toggleMusic()">
+    <span class="music-icon">🎵</span>
+    <span id="music-label">Sound On</span>
+  </button>
+
+  <!-- Background Clouds -->
+  <div class="bg-decor">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+  </div>
+
+  <div class="stage-container">
+
+    <!-- ================= STEP 1: GIFT BOX ================= -->
+    <div class="step active" id="step-1">
+      <div class="eyebrow">A LITTLE SURPRISE FOR</div>
+      <div class="script-title" id="ui-recipient-1">Chris chakku</div>
+      <div class="script-sub" id="ui-sender-1">from Allen kuttan, with love</div>
+
+      <div class="speec
